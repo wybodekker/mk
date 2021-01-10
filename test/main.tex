@@ -1,0 +1,58 @@
+%!lualatex
+\documentclass[11pt,a4paper]{book}
+\usepackage{fontspec,kantlipsum,makeidx}
+\usepackage[colorlinks]{hyperref}
+\usepackage[activate={true,nocompatibility}]{microtype}
+% suppress microtype warnings - may become unnecessary with microtype > v2.7b
+\makeatletter\def\MT@warn@unknown{}\makeatother
+
+\def\OS{Numbers={OldStyle,Proportional}}
+\def\fR{LinLibertine_R}
+\def\fI{LinLibertine_RI}
+\def\fB{LinLibertine_RB}
+\def\fBI{LinLibertine_RBI}
+\def\fS{LinLibertine_aS}
+
+\setmainfont[Ligatures=TeX,\OS]{\fR}[%
+  ItalicFont=\fI,
+  BoldFont=\fB,
+  BoldItalicFont=\fBI,
+  SmallCapsFont=\fS
+]
+
+\usepackage{polyglossia}\setmainlanguage{english}
+\bibliographystyle{plain}
+\title{mk - a TeX/LaTeX maker}
+\author{Wybo Dekker}
+\makeindex
+
+\def\Liga{Suffice it to say that, maybe, the f{}f ligature may not work.}
+
+% the message shows how luatex handles max_print_line = 79 in texmf.cnf.
+% LuaTeX upto 0.80.0 breaks lines as if max_print_line = 80, but the message command breaks lines at 79
+% Next LuaTeX version should have infinite log line lengths - but what does \message in that case?
+\message{12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\chapter{Introduction}
+This document is a test for \texttt{mk}, the TeX/LaTeX maker
+For more information about TeX, see~\cite{texbook}.
+
+\section{Roman}\index{Kant}
+\kant[1] See~\cite{gracom}
+\Liga
+
+\section{Bold}\index{Kant!bold}
+{\bfseries \kant[2] \Liga}
+
+\section{Italic}\index{Kant!italic}
+{\itshape \kant[3] \Liga} See~\cite{latcomp}
+
+\section{SmallCaps}\index{Kant!smallcaps}
+{\scshape \kant[4] \Liga}
+
+\bibliography{ex1,ex2}
+\printindex
+\end{document}
