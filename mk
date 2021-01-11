@@ -826,7 +826,7 @@ setformatter () {
          /^\s*\\begin{document}/q
          /^\s*\\documentclass/p
       ' "$base.$ext")
-      warn "preamble: $preamble"
+      warn 'preamble:' "$preamble" ''
       if [[ $preamble =~ fontspec ]]; then
          formatter=lualatex
       elif [[ $preamble =~ documentclass ]]; then
@@ -834,11 +834,10 @@ setformatter () {
       else
          formatter=pdftex
       fi
-      warn <<-EOD
-        I guessed from the preamble that $formatter should be used to
-        format $base.$ext. If this is incorrect, then use the --formatter
-        option or specify the formatter in line 1 of your sourcea.
-	EOD
+      warn \
+        "   I guessed from the preamble that *$formatter* should be used to"\
+        "format *$base.$ext*. If this is incorrect, then use the --formatter"\
+        'option or specify the formatter in line 1 of your source.'
    fi
    if [[ $formatter == tex || $formatter == latex ]]; then
       targetext=dvi vpptargetext=ps
@@ -940,15 +939,10 @@ if [ "$ext" = 'dtx' ]; then
    indexprefix="TEXINDY=false MAKEINDEX='makeindex -s gind.ist'"
 fi
 
-texcommand="\
-   $indexprefix \
-   LATEX='$formatter \
-	  -halt-on-error \
-	  -recorder \
-	  -synctex=1 \
-	  $extraoptions \
-	 ' \
-	 texi2dvi --no-line-error $q '$base.$ext' 2>/dev/null"
+texcommand="$indexprefix \
+LATEX='$formatter -halt-on-error -recorder -synctex=1 $extraoptions' \
+texi2dvi --no-line-error $q '$base.$ext' 2>/dev/null"
+
 while true; do
    if compile; then
       $view || $print && {
