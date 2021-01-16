@@ -381,10 +381,8 @@ warnings_to_skip=()
    Warn() { local i; for i; do echo -e "$Myname: $Mag$i$Nor"; done 1>&2; }
    warn() { $verbose && Warn "$@"; }
 helpsrt() { sed -n '/^= Synopsis/,/^= /p' "$0"|sed '1d;$d'; exit; }
-helpall() { sed -n "/^:<<'DOC'$/,/^DOC/p" "$0"|sed -n '1d;$d;p'|
-            less -Ps"$Myname-${Version/./·} documentation - type h for help, q to quit."
-		exit
-	  }
+helpall() { sed -n "/^:<<'DOC'$/,/^DOC/p" "$0"|sed '1d;$d'|
+            less -P"$Myname-${Version/./·} (press h for help, q to quit)";exit; }
 
 :<<'DOC' #---------------------------------------------------------------------
 = excheck
@@ -969,4 +967,3 @@ done
 edit=
 # compilation was OK, but still show any warnings:
 show_error_and_edit
-# vim: set filetype=bash
