@@ -233,21 +233,21 @@ Other variables, not having a corresponding command line option, that can
 be set in the rc files, and their default values, are:
 
 EDITOR=	
-        sets your editor; You can also set your EDITOR in your system
-        startup files. Note that your editor should not fork; so if you set
-        it to gvim, do:
+	sets your editor; You can also set your EDITOR in your system
+	startup files. Note that your editor should not fork; so if you set
+	it to gvim, do:
 	  EDITOR='gvim --nofork'
 extraoptions=	
 	adds one or more extra options to the /tex/ (/latex, xelatex/ et
 	cetera) command. Example: |extraoptions='-shell-escape -quiet'|
 othercleans=	
-        can be set to a file regular expression; in the cleaning operation,
-        caused by the |--clean| option, this variable will be eval'ed, and
-        the resulting files will be removed. This is useful, for example,
-        when the |gnuplottex| package is used; this package generates
-        intermediate files named |$base-gnuplottex-fig*|, where the
-        variable |$base| contains the basename (without extension) of your
-        tex source file. So after adding:
+	can be set to a file regular expression; in the cleaning operation,
+	caused by the |--clean| option, this variable will be eval'ed, and
+	the resulting files will be removed. This is useful, for example,
+	when the |gnuplottex| package is used; this package generates
+	intermediate files named |$base-gnuplottex-fig*|, where the
+	variable |$base| contains the basename (without extension) of your
+	tex source file. So after adding:
 	   othercleans='$base-gnuplottex-fig*'
 	to your |./mkrc| file, the cleaning operation will get rid of these
 	files, too.
@@ -272,14 +272,14 @@ altdir=
 	|/Docs/myfile.tex| you can set |altdir| to |/Docs| and run
 	mk from any directory with:
 	   $ mk myfile
-        However, a directory like |/Docs| does not make much sense if many
-        of your LaTeX documents do not consist of a single file, but are
-        constituted of an ensemble of a main LaTeX source and one or more
-        files read with |\include| or with |\input| such as graphics. You
-        will then probably prefer to have a subdirectory in |/Docs| for
-        every LaTeX document. Therefore, if mk does not find |myfile.tex|
-        in the alternate directory, it will assume that /myfile/ is a
-        subdirectory with a main LaTeX source in it, called |main.tex|.
+	However, a directory like |/Docs| does not make much sense if many
+	of your LaTeX documents do not consist of a single file, but are
+	constituted of an ensemble of a main LaTeX source and one or more
+	files read with |\include| or with |\input| such as graphics. You
+	will then probably prefer to have a subdirectory in |/Docs| for
+	every LaTeX document. Therefore, if mk does not find |myfile.tex|
+	in the alternate directory, it will assume that /myfile/ is a
+	subdirectory with a main LaTeX source in it, called |main.tex|.
 default=main	
 	This is the default for the base name of your LaTeX document.
 warnings_to_skip=()	
