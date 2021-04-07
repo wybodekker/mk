@@ -675,14 +675,14 @@ DOC
 first=true
 handle_options() {
    local options rcfile
-   if ! options=$(getopt \
+   options=$(getopt \
       -n "$Myname" \
       -o CHIVb:ce:f:hnp:r::v \
       -l Clean,Help,batch:,clean,edit:,formatter:,help,nocolor,noprint,\
 noverbose,noview,preview,print,printer:,ps,rc::,verbose,version,view -- "$@"
-   ); then exit 1; fi
+   ) || exit 1
    eval set -- "$options"
-   while [ $# -gt 0 ]; do
+   while true; do
       if $first; then
 	 first=false
 	 if [[ $1 = -r ]] || [[ $1 == --rc ]]; then
@@ -702,13 +702,13 @@ noverbose,noview,preview,print,printer:,ps,rc::,verbose,version,view -- "$@"
       case $1 in
 
       # General options:
-      (-h|--help)    	# print this help and exit
+      (-h|--help)	# print this help and exit
 			helpsrt
 			;;
-      (-H|--Help)    	# print full documentation via less and exit
+      (-H|--Help)	# print full documentation via less and exit
 			helpall
 			;;
-      (-V|--version) 	# print version and exit
+      (-V|--version)	# print version and exit
 			echo $Version
 			exit
 			;;
@@ -716,7 +716,7 @@ noverbose,noview,preview,print,printer:,ps,rc::,verbose,version,view -- "$@"
 			verbose=true
 			shift
 			;;
-      (   --noverbose)	# be quiet (this is the default)
+      (	  --noverbose)	# be quiet (this is the default)
 			verbose=false
 			shift
 			;;
@@ -738,9 +738,9 @@ noverbose,noview,preview,print,printer:,ps,rc::,verbose,version,view -- "$@"
 			shift 2
 			;;
       (-e|--edit)	# use STRING as the file to be edited; by default,
-                        # the file containing the compilation error is
-                        # presented for editing, or, if there are no
-                        # errors, the main source file.
+			# the file containing the compilation error is
+			# presented for editing, or, if there are no
+			# errors, the main source file.
 			edit="${2/\~/$HOME}"
 			shift 2
 			;;
@@ -752,13 +752,13 @@ noverbose,noview,preview,print,printer:,ps,rc::,verbose,version,view -- "$@"
 			clean=true
 			shift
 			;;
-      (   --ps)		die 'The --ps option has been removed; use --formatter'
+      (	  --ps)		die 'The --ps option has been removed; use --formatter'
 			;;
 
       # vpp-related options:
       (-b|--batch)	# run in batch using STRING as a printing command
-                        # for vpp. See the section /Running in batch mode/
-                        # for more information.
+			# for vpp. See the section /Running in batch mode/
+			# for more information.
 			batch="$2"
 			shift 2
 			;;
@@ -766,26 +766,26 @@ noverbose,noview,preview,print,printer:,ps,rc::,verbose,version,view -- "$@"
 			printer="$2"
 			shift 2
 			;;
-      (   --view)	# view the document after compilation
+      (	  --view)	# view the document after compilation
 			view=true
 			shift
 			;;
-      (   --noview)	# do not view
+      (	  --noview)	# do not view
 			view=false
 			shift
 			;;
-      (   --print)	# offer printing interaction after viewing
+      (	  --print)	# offer printing interaction after viewing
 			print=true
 			shift
 			;;
-      (   --noprint)	# do not offer printing interaction
+      (	  --noprint)	# do not offer printing interaction
 			print=false
 			shift
 			;;
-      (   --preview)    print=false view=false previewing=true
-                        shift
-                        ;;
-      (-I)           	instscript "$0" ||
+      (	  --preview)	print=false view=false previewing=true
+			shift
+			;;
+      (-I)		instscript "$0" ||
 			   die 'the -I option is for developers only'
 			exit
 			;;
