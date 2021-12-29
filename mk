@@ -83,6 +83,15 @@ the source by typing 'e' to get back to mk and (re)edit your source.
 After saving your work and leaving your editor, another compilation
 and display cycle will be performed, based on the new source.
 
+If the compilation results in an error, the eror wil be displayed by
+the |texlog_extract| script, and you will be prompted with:
+
+    =====> e(dit) c(ompile) q(uit) 
+
+giving you the opportunity to e(dit) the source, after which it will be
+recompiled, or to c(ompile) it again (because you may have editied it in
+another window), or just to quit.
+
 Essentially, mk uses /texi2dvi/ for compilation. /texi2dvi/ always
 runs TeX at least once, even though this may be unnecessary.
 Therefore, TeX will be run with the |--recorder| option, which reports
@@ -635,7 +644,7 @@ description:	Start the user´s editor to edit the edfile in argument 1
 		argument 2, if empty: 1). If the call was induced by the
                 detection of an error in edfile, the third argument is
                 true and the user will be asked if he wants to edit edfile,
-		or to quit.
+		to compile it again (in case he edited it externally) or to quit.
 globals used:	 edit EDITOR
 returns:	1 if the file was edited, else 0
 DOC
@@ -646,12 +655,13 @@ edit() {
       Warn "ask in $edfile"
       test -t 1 || return 0 # return if stdout is not to a terminal
       while true; do
-         echo -n '=====> e(dit) q(uit) '
+         echo -n '=====> e(dit) c(ompile) q(uit) '
          read -r x
          case "$x" in
          (q) return 0;;
+	 (c) rm -f "$target"; return 1;;
          (e) break;;
-         (*) echo you must type e or q
+         (*) echo you must type e, c or q
          esac
       done
    fi
