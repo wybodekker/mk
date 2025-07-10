@@ -338,7 +338,7 @@ in the basename of TeX sources are not allowed (neither does the /texi2dvi/
 script on which mk is based.)
 
 = Author
-[Wybo Dekker](wybo@dekkerdocumenten.nl)
+[Wybo Dekker](wybodekker@me.com)
 
 = Copyright
 Released under the [GNU General Public License](www.gnu.org/copyleft/gpl.html)
