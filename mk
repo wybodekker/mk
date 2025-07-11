@@ -123,29 +123,31 @@ prompted with:
 on typing 'h' /vpp/ displays examples of possible commands:
 
    Examples of print commands:
-       5       to print page 5
-       5-      to print pages 5 through the end
-       5-7     to print pages 5, 6 and 7
-       -7      to print the first 7 pages
-       5-7,19- to print pages 5, 6, 7 and 19 through the end
-       a       to print the whole document
-       -       to print the whole document
-       a x3    to print 3 copies of the document
-       x3      the same
-       5 x3    to print 3 copies of page 5
-       t       print the whole document two sided
-       t 2-    print two sided starting at page 2
-       b       to print the whole document as an a5 size booklet
-       b -12   to print the first 12 pages as an a5 size booklet
+      5         to print page 5
+      5-        to print pages 5 through the end
+      5-7       to print pages 5, 6 and 7
+      7-5 ox    write pages 7, 6 and 5, in that order, to x.pdf
+      -7        to print the first 7 pages
+      5-7 19-   to print pages 5, 6, 7 and 19 through the end
+      a         to print the whole document
+      -         to print the whole document
+      a x3      to print 3 copies of the document
+      x3        the same
+      5 x3      to print 3 copies of page 5
+      s         print the whole document single-sided
+      s 2-      print single-sided starting at page 2
+      b         to print the whole document as an a5 size booklet
+      b -12     to print the first 12 pages as an a5 size booklet
    Other commands:
-       e       (if called by mk) edit the tex source and rerun mk
-       c       (if called by mk) rerun mk
-       v       (re)view the ps/pdf file
-       oxyz    send pdf output to file xyz.pdf instead of printer
-       pxyz    print to printer xyz
-       h       display this help
-       ?       display this help
-       q       quit
+      e         edit the tex source and rerun mk
+      c         rerun mk with forced compilation
+      v         (re)view the ps/pdf file
+      w         list errors and warnings from the log file
+      oxyz      send pdf output to file xyz.pdf instead of printer
+      pxyz      print to printer xyz
+      h         display this help
+      ?         display this help
+      q         quit
 
 With these examples, no further explanation should be necessary, except
 that, when two sided (|t|) or booklet (|b|) printing is selected for a single-
