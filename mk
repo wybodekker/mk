@@ -496,18 +496,20 @@ DOC
 #-------------------------------------------------------------------------------
 newtexdeps() {
    local fls="$base.fls" i
-   
+    
    [[ $(head -1 "$fls") =~ ^PWD ]] || die "$fls is not a TeX fls file"
-   for i in $(
-      sed -ne "/INPUT/!d; s/INPUT //;/${skip_pattern//\//\\\/}/d;p" "$fls" |
-      uniq |
-      xargs
-   ); do 
+   while IFS= read -r -d '' i; do
       if [[ $i -nt "$target" ]]; then
          warn "$i is newer than $target"
          return 0
+      else
+         warn "$i is NOT newer than $target"
       fi
-   done
+   done < <(
+      sed -ne "/INPUT/!d; s/INPUT //;/${skip_pattern//\//\\\/}/d;p" "$fls" |
+      uniq |
+      tr '\n' '\0'
+   )
    warn "no changes in tex dependencies"
    return 1
 }
@@ -616,7 +618,7 @@ show_error_and_edit() {
    : "${errorfile:="$edit"}"
    errorfile="${errorfile%%[\{ ]*}" # remove {...} and spaces at the end
    if [[ $errorfile =~ $base.bbl ]]; then
-      rm $errorfile
+      rm "$errorfile"
       newbibdeps
       e=${m[3]##* }	# last, probably offending, word of error message
       e=${e%$'\n'}	# remove newline
@@ -954,9 +956,11 @@ if [ "$ext" = 'dtx' ]; then
    indexprefix="TEXINDY=false MAKEINDEX='makeindex -s gind.ist'"
 fi
 
-texcommand="$indexprefix \
-LATEX='$formatter -halt-on-error -recorder -synctex=1 $extraoptions' \
-texi2dvi --no-line-error $q '$base.$ext' 2>/dev/null"
+texcommand="\
+   $indexprefix \
+   LATEX='$formatter -halt-on-error -recorder -synctex=1 $extraoptions' \
+   texi2dvi --no-line-error $q '$base.$ext' 2>/dev/null\
+"
 
 while true; do
    if compile; then
