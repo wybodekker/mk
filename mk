@@ -773,8 +773,6 @@ handle_options() {
 			clean=true
 			shift
 			;;
-      (	  --ps)		die 'The --ps option has been removed; use --formatter'
-			;;
 
       # vpp-related options:
       (-b|--batch)	# run in batch using X as a printing command for vpp.
