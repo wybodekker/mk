@@ -23,7 +23,7 @@ mk [options] [file]
 
 == mk specific options:
 
--f,--formatter=X  Use X as the formatter: tex, latex, pdflatex,
+-f,--formatter=X	  Use X as the formatter: tex, latex, pdflatex,
 		  et cetera
 -e,--edit=X	  use X as the file to be edited; by default, the file
 		  containing the compilation error is presented for
