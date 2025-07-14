@@ -319,9 +319,9 @@ mk can be used for one-click typesetting:
 
 - edit -> preferences -> Typesetting
 - add a new tool |mk| and give it three parameters:
-      --preview
-      --nocolor
-      $basename
+
+      --preview --nocolor $basename
+
 - Deselect "Auto-hide output panel unless errors occur"
 - If you need an other formatter than the default, pdflatex, use the
   |%!| line in your source, or define separate tools in TeXWorks with
@@ -332,12 +332,12 @@ able to jump between source and pdf-ouput.
 
 = Bugs
 
-If, during the compile-edit-cycle, the |%!| line is changed, mk should
-respond to it by changing the formatter.
+- If, during the compile-edit-cycle, the |%!| line is changed, mk should
+  respond to it by changing the formatter.
 
-Currently, mk is only available for Linux. It depends on /texi2dvi/. Spaces
-in the basename of TeX sources are not allowed (neither does the /texi2dvi/
-script on which mk is based.)
+- Currently, mk is only available for Linux. It depends on /texi2dvi/.
+  Spaces in the basename of TeX sources are not allowed (neither does the
+  /texi2dvi/ script on which mk is based.)
 
 = Author
 [Wybo Dekker](wybodekker@me.com)
